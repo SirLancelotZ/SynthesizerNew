@@ -33,7 +33,9 @@ public class SynthesizerActivity extends AppCompatActivity implements View.OnCli
     private Button buttonScale2;
     private Button buttonScale3;
     private Button buttonTTLS;
-    private CheckBox line2;
+    private Button come;
+    private Button lick;
+    private CheckBox checkBox_main_2nd;
 
     private SoundPool soundPool;
     private int noteA;
@@ -131,6 +133,9 @@ public class SynthesizerActivity extends AppCompatActivity implements View.OnCli
         buttonScale2.setOnClickListener(this);
         buttonScale3.setOnClickListener(this);
         buttonTTLS.setOnClickListener(this);
+        checkBox_main_2nd.setOnClickListener(this);
+        come.setOnClickListener(this);
+        lick.setOnClickListener(this);
 
     }
 
@@ -138,6 +143,8 @@ public class SynthesizerActivity extends AppCompatActivity implements View.OnCli
         buttonTTLS = findViewById(R.id.button_main_song);
         buttonScale2 = findViewById(R.id.button_main_scale2);
         buttonScale3 = findViewById(R.id.button_main_scale3);
+        come = findViewById(R.id.button_main_caya);
+        lick = findViewById(R.id.button_main_lick);
 
         buttonScale = findViewById(R.id.button_main_scale);
         buttonA = findViewById(R.id.button_synth_a);
@@ -152,7 +159,7 @@ public class SynthesizerActivity extends AppCompatActivity implements View.OnCli
         buttonFs = findViewById(R.id.button_synth_fs);
         buttonG = findViewById(R.id.button_synth_g);
         buttonGs = findViewById(R.id.button_synth_gs);
-        checkBox_main_line2 = (CheckBox)findViewById(R.id.line2);
+        checkBox_main_2nd = findViewById(R.id.checkBox_main_2nd);
 
     }
 
@@ -221,8 +228,71 @@ public class SynthesizerActivity extends AppCompatActivity implements View.OnCli
             case R.id.button_main_song:
                 playTTLS();
                 break;
+            case  R.id.button_main_caya:
+                playCAYA();
+                break;
+            case R.id.button_main_lick:
+                playLick();
+                break;
 
         }
+    }
+
+    private void playLick() {
+        List<Note> notes = new ArrayList<>();
+        notes.add(new Note(noteC));
+        notes.add(new Note(noteD));
+        notes.add(new Note(noteDs));
+        notes.add(new Note(noteF));
+        notes.add(new Note(noteD));
+        notes.add(new Note(noteBb));
+        notes.add(new Note(noteC));
+        int i = 0;
+        for (Note note : notes) {
+
+            i = i + 1;
+            if (i == 5 ) {
+                playNote(note.getNoteId());
+                delay(HALF_NOTE);
+            }
+            else {
+                playNote(note.getNoteId());
+                delay(HALF_NOTE / 2);
+            }
+        }
+
+    }
+
+    private void playCAYA() {
+        List<Note> notes = new ArrayList<>();
+        notes.add(new Note(noteA));
+        notes.add(new Note(noteA));
+        notes.add(new Note(noteBb));
+        notes.add(new Note(noteB));
+        notes.add(new Note(noteD));
+        notes.add(new Note(noteB));
+        notes.add(new Note(noteD));
+        notes.add(new Note(noteB));
+        notes.add(new Note(noteB));
+        notes.add(new Note(noteBb));
+        notes.add(new Note(noteA));
+        notes.add(new Note(noteE));
+        notes.add(new Note(noteA));
+        notes.add(new Note(noteA));
+        int i = 0;
+        for (Note note : notes) {
+
+            i = i + 1;
+            if (i == 4 || i == 14) {
+                playNote(note.getNoteId());
+                delay(HALF_NOTE);
+            }
+            else {
+                playNote(note.getNoteId());
+                delay(HALF_NOTE / 2);
+            }
+        }
+
     }
 
     private void playTTLS() {
@@ -236,12 +306,12 @@ public class SynthesizerActivity extends AppCompatActivity implements View.OnCli
         notes.add(new Note(noteE));
 
 
-        for(Note note : notes){
+        for (Note note : notes) {
             playNote(note.getNoteId());
             delay(HALF_NOTE);
         }
 
-        delay(WHOLE_NOTE);
+        delay(HALF_NOTE);
 
         List<Note> notes2 = new ArrayList<>();
         notes2.add(new Note(noteD));
@@ -251,12 +321,34 @@ public class SynthesizerActivity extends AppCompatActivity implements View.OnCli
         notes2.add(new Note(noteB));
         notes2.add(new Note(noteB));
         notes2.add(new Note(noteA));
-        for(Note note : notes2){
-            playNote(note.getNoteId());
+        for (Note note2 : notes2) {
+            playNote(note2.getNoteId());
             delay(HALF_NOTE);
         }
 
+        delay(HALF_NOTE);
 
+
+        if(checkBox_main_2nd.isChecked()) {
+
+
+            for (int x = 1; x <= 2; x++) {
+                List<Note> notes3 = new ArrayList<>();
+                notes3.add(new Note(noteE));
+                notes3.add(new Note(noteE));
+                notes3.add(new Note(noteD));
+                notes3.add(new Note(noteD));
+                notes3.add(new Note(noteCs));
+                notes3.add(new Note(noteCs));
+                notes3.add(new Note(noteB));
+                for (Note note3 : notes3) {
+                    playNote(note3.getNoteId());
+                    delay(HALF_NOTE);
+                }
+                delay(HALF_NOTE);
+
+            }
+        }
     }
 
     private void playScale3() {
