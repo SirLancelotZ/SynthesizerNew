@@ -7,10 +7,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -35,6 +33,7 @@ public class SynthesizerActivity extends AppCompatActivity implements View.OnCli
     private Button buttonTTLS;
     private Button come;
     private Button lick;
+    private Button chord;
     private CheckBox checkBox_main_2nd;
 
     private SoundPool soundPool;
@@ -136,6 +135,7 @@ public class SynthesizerActivity extends AppCompatActivity implements View.OnCli
         checkBox_main_2nd.setOnClickListener(this);
         come.setOnClickListener(this);
         lick.setOnClickListener(this);
+        chord.setOnClickListener(this);
 
     }
 
@@ -145,6 +145,7 @@ public class SynthesizerActivity extends AppCompatActivity implements View.OnCli
         buttonScale3 = findViewById(R.id.button_main_scale3);
         come = findViewById(R.id.button_main_caya);
         lick = findViewById(R.id.button_main_lick);
+        chord = findViewById(R.id.button_main_chord);
 
         buttonScale = findViewById(R.id.button_main_scale);
         buttonA = findViewById(R.id.button_synth_a);
@@ -234,8 +235,72 @@ public class SynthesizerActivity extends AppCompatActivity implements View.OnCli
             case R.id.button_main_lick:
                 playLick();
                 break;
+            case R.id.button_main_chord:
+                playChord();
+                break;
 
         }
+    }
+
+    private void playChord() {
+        playEACs();
+        delay(HALF_NOTE/4);
+        playEACs();
+        delay(HALF_NOTE/2);
+        playEACs();
+        delay(HALF_NOTE/2);
+        playEACs();
+        delay(HALF_NOTE/4);
+        playEACs();
+        delay(HALF_NOTE/2);
+        playEACs();
+        delay(HALF_NOTE/2);
+        playDsGsB();
+        delay(HALF_NOTE/2);
+        playGsCsE();
+        delay(HALF_NOTE/2);
+
+        List<Note> notes = new ArrayList<>();
+        notes.add(new Note(noteFs));
+        notes.add(new Note(noteE));
+        notes.add(new Note(noteCs));
+        notes.add(new Note(noteB));
+        notes.add(new Note(noteCs));
+        notes.add(new Note(noteFs));
+        notes.add(new Note(noteE));
+        notes.add(new Note(noteCs));
+        notes.add(new Note(noteB));
+        notes.add(new Note(noteFs));
+        notes.add(new Note(noteE));
+        notes.add(new Note(noteCs));
+        notes.add(new Note(noteB));
+        notes.add(new Note(noteCs));
+        notes.add(new Note(noteE));
+        for (Note note : notes) {
+
+
+                playNote(note.getNoteId());
+                delay(HALF_NOTE / 4);
+
+        }
+    }
+
+    private void playEACs() {
+        playNote(noteE);
+        playNote(noteA);
+        playNote(noteCs);
+    }
+
+    private void playDsGsB(){
+        playNote(noteDs);
+        playNote(noteGs);
+        playNote(noteB);
+    }
+
+    private void playGsCsE(){
+        playNote(noteGs);
+        playNote(noteCs);
+        playNote(noteE);
     }
 
     private void playLick() {
