@@ -35,6 +35,7 @@ public class SynthesizerActivity extends AppCompatActivity implements View.OnCli
     private Button lick;
     private Button chord;
     private CheckBox checkBox_main_2nd;
+    private CheckBox checkbox_repeat;
 
     private SoundPool soundPool;
     private int noteA;
@@ -133,6 +134,7 @@ public class SynthesizerActivity extends AppCompatActivity implements View.OnCli
         buttonScale3.setOnClickListener(this);
         buttonTTLS.setOnClickListener(this);
         checkBox_main_2nd.setOnClickListener(this);
+        checkbox_repeat.setOnClickListener(this);
         come.setOnClickListener(this);
         lick.setOnClickListener(this);
         chord.setOnClickListener(this);
@@ -161,6 +163,7 @@ public class SynthesizerActivity extends AppCompatActivity implements View.OnCli
         buttonG = findViewById(R.id.button_synth_g);
         buttonGs = findViewById(R.id.button_synth_gs);
         checkBox_main_2nd = findViewById(R.id.checkBox_main_2nd);
+        checkbox_repeat = findViewById(R.id.checkBox_main_repeat);
 
     }
 
@@ -243,16 +246,15 @@ public class SynthesizerActivity extends AppCompatActivity implements View.OnCli
     }
 
     private void playChord() {
+
+        playEACs();
+        delay(HALF_NOTE/3*2);
+        playEACs();
+        delay(HALF_NOTE/2);
+        playEACs();
+        delay(HALF_NOTE/2);
         playEACs();
         delay(HALF_NOTE/4);
-        playEACs();
-        delay(HALF_NOTE/2);
-        playEACs();
-        delay(HALF_NOTE/2);
-        playEACs();
-        delay(HALF_NOTE/4);
-        playEACs();
-        delay(HALF_NOTE/2);
         playEACs();
         delay(HALF_NOTE/2);
         playDsGsB();
@@ -264,24 +266,60 @@ public class SynthesizerActivity extends AppCompatActivity implements View.OnCli
         notes.add(new Note(noteFs));
         notes.add(new Note(noteE));
         notes.add(new Note(noteCs));
-        notes.add(new Note(noteB));
-        notes.add(new Note(noteCs));
+        notes.add(new Note(noteE));
         notes.add(new Note(noteFs));
         notes.add(new Note(noteE));
         notes.add(new Note(noteCs));
-        notes.add(new Note(noteB));
+        notes.add(new Note(noteE));
         notes.add(new Note(noteFs));
         notes.add(new Note(noteE));
+
+
+
+
+
         notes.add(new Note(noteCs));
         notes.add(new Note(noteB));
         notes.add(new Note(noteCs));
+        notes.add(new Note(noteB));
+        notes.add(new Note(noteCs));
+        notes.add(new Note(noteFs));
+;
         notes.add(new Note(noteE));
         for (Note note : notes) {
 
 
                 playNote(note.getNoteId());
-                delay(HALF_NOTE / 4);
+                delay(HALF_NOTE / 3);
 
+        }
+
+        if(checkbox_repeat.isChecked()){
+            playEACs();
+            delay(HALF_NOTE/3*2);
+            playEACs();
+            delay(HALF_NOTE/2);
+            playEACs();
+            delay(HALF_NOTE/2);
+            playEACs();
+            delay(HALF_NOTE/4);
+            playEACs();
+            delay(HALF_NOTE/2);
+            playDsGsB();
+            delay(HALF_NOTE/2);
+            playGsCsE();
+            delay(HALF_NOTE/2);
+
+
+
+
+            for (Note note : notes) {
+
+
+                playNote(note.getNoteId());
+                delay(HALF_NOTE / 3);
+
+            }
         }
     }
 
@@ -357,7 +395,21 @@ public class SynthesizerActivity extends AppCompatActivity implements View.OnCli
                 delay(HALF_NOTE / 2);
             }
         }
+        if(checkbox_repeat.isChecked()){
+            int c = 0;
+            for (Note note : notes) {
 
+                c = c + 1;
+                if (c == 4 || c == 14) {
+                    playNote(note.getNoteId());
+                    delay(HALF_NOTE);
+                }
+                else {
+                    playNote(note.getNoteId());
+                    delay(HALF_NOTE / 2);
+                }
+            }
+        }
     }
 
     private void playTTLS() {
@@ -457,6 +509,19 @@ public class SynthesizerActivity extends AppCompatActivity implements View.OnCli
         List<Note> notes = new ArrayList<>();
         notes.add(new Note(noteA));
 
+        notes.add(new Note(noteE));
+        notes.add(new Note(noteFs));
+        notes.add(new Note(noteE));
+
+
+
+
+
+        notes.add(new Note(noteB));
+        notes.add(new Note(noteCs));
+        notes.add(new Note(noteFs));
+        ;
+        notes.add(new Note(noteE));
 
 
         for(Note note : notes){
